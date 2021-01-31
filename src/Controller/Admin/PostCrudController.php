@@ -5,8 +5,11 @@ namespace App\Controller\Admin;
 use App\Entity\Post;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class PostCrudController extends AbstractCrudController
 {
@@ -23,6 +26,8 @@ class PostCrudController extends AbstractCrudController
             TextEditorField::new('content'),
             AssociationField::new('category')->autocomplete(),
             //AssociationField::new('user')->onlyOnIndex(),
+            Field::new('thumbnailFile')->setFormType(VichImageType::class)->onlyOnForms(),
+            ImageField::new('thumbnail')->setBasePath('images\thumbnails')->onlyOnIndex(),
         ];
     }
     
